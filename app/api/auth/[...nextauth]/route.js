@@ -24,14 +24,21 @@ export const authOption = {
       clientSecret: GOOGLE_CLIENT_SECRET,
     }),
   ],
-  // callbacks: {
-  //   async signIn({ account, profile }) {
-  //     if (account.provider === "google") {
-  //       return profile.email_verified && profile.email.endsWith("@example.com");
-  //     }
-  //     return true; // Do different verification for other providers that don't have `email_verified`
-  //   },
-  // },
+  callbacks: {
+    async signIn({ account, profile }) {
+      if (account.provider === "google") {
+        return profile.email_verified && profile.email.endsWith("@example.com");
+      }
+      return true; // Do different verification for other providers that don't have `email_verified`
+    },
+    session: async ({ session, token, user }) => {
+      if (session?.user) {
+        session.user.id = user.id;
+      }
+
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOption);
