@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Products from "@/components/Products";
+import Products from "@/app/components/Products";
 import prisma from "@/lib/prisma";
 
 let getProducts = async () => {

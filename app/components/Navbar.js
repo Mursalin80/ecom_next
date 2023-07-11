@@ -22,7 +22,10 @@ export default function Example() {
   const { data: session } = useSession();
 
   return (
-    <Disclosure as="nav" className="bg-gradient-to-b from-zinc-700 ">
+    <Disclosure
+      as="nav"
+      className="bg-gradient-to-b from-zinc-700 relative z-50 "
+    >
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -109,7 +112,7 @@ export default function Example() {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              href="/profile"
+                              href="/user"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -119,6 +122,7 @@ export default function Example() {
                             </Link>
                           )}
                         </Menu.Item>
+
                         <Menu.Item>
                           {({ active }) => (
                             <a
