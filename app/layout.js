@@ -5,8 +5,7 @@ import { Slide, ToastContainer } from "react-toastify";
 import Cart from "@/context/cartContext";
 
 import Provider from "@/app/components/Provider";
-
-import Navbar from "@/app/components/Navbar";
+import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

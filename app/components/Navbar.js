@@ -8,6 +8,7 @@ import { HiShoppingBag } from "react-icons/hi2";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useCart } from "@/context/cartContext";
+import Cart from "./cart/Cart";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -20,7 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+const Navbar = () => {
   const { data: session } = useSession();
   let {
     cartState: { items },
@@ -83,12 +84,14 @@ export default function Example() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div>
                   <button
+                    onMouseOver={() => <Cart />}
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="sr-only">View notifications</span>
-
-                    <HiShoppingBag />
+                    <Link href="/cart">
+                      <HiShoppingBag />
+                    </Link>
                   </button>
                   <sup>{cartItemsCount}</sup>
                 </div>
@@ -191,4 +194,6 @@ export default function Example() {
       )}
     </Disclosure>
   );
-}
+};
+
+export default Navbar;

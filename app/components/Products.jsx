@@ -2,6 +2,7 @@
 import React from "react";
 import { useCart } from "@/context/cartContext";
 import Link from "next/link";
+import Image from "next/image";
 
 const productsData = [
   {
@@ -56,10 +57,12 @@ const Products = ({ products }) => {
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
-            <div key={product.id} className="group">
+            <div key={product.id} className="group  my-1">
               <Link href="#">
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                  <img
+                <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  <Image
+                    width={250}
+                    height={350}
                     src={product.images[0].url}
                     alt={product.images[0].public_id}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
@@ -67,16 +70,17 @@ const Products = ({ products }) => {
                 </div>
               </Link>
               <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-              <p className="mt-1 text-lg  text-gray-900 font-bold p-2 my-2 rounded-3xl">
-                {product.price}
-
+              <div className="flex items-center justify-between my-2 bg-gray-100 py-1 px-3 rounded-lg">
+                <span className="text-xl font-bold text-gray-900 dark:text-white">
+                  $ {product.price}
+                </span>
                 <button
                   onClick={() => addItem({ ...product, quantity: 1 })}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 my-2 rounded-3xl"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Add to Cart
+                  Add to cart
                 </button>
-              </p>
+              </div>
             </div>
           ))}
         </div>

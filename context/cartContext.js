@@ -30,11 +30,14 @@ const cartReducer = (state, action) => {
       return decreaseQuantity(state, action.payload);
     case "CLEAR_CART":
       return clearCart();
+    case "SET_CART":
+      return action.payload;
     default:
       return state;
   }
 };
 
+// dispatch({ type: "SET_CART", payload: JSON.parse(storedCart) });
 // reducer methods
 const calculateTotal = (items) => {
   return items.reduce((total, item) => total + item.price * item.quantity, 0);
