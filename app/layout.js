@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
+import Cart from "@/context/cartContext";
 
 import Provider from "@/app/components/Provider";
 
@@ -19,9 +20,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <Navbar />
+          <Cart>
+            <Navbar />
 
-          {children}
+            {children}
+          </Cart>
         </Provider>
         <ToastContainer
           position="top-right"

@@ -4,13 +4,15 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { HiShoppingBag } from "react-icons/hi2";
 
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useCart } from "@/context/cartContext";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
+  { name: "Profile", href: "/profile", current: false },
+  { name: "ProfileData", href: "/profileData", current: false },
   { name: "Calendar", href: "#", current: false },
 ];
 
@@ -20,6 +22,10 @@ function classNames(...classes) {
 
 export default function Example() {
   const { data: session } = useSession();
+  let {
+    cartState: { items },
+  } = useCart();
+  let cartItemsCount = items.length;
 
   return (
     <Disclosure
@@ -75,13 +81,17 @@ export default function Example() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View notifications</span>
+
+                    <HiShoppingBag />
+                  </button>
+                  <sup>{cartItemsCount}</sup>
+                </div>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">

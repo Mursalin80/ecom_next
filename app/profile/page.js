@@ -111,9 +111,6 @@ const Profile = async () => {
                 <pre>{JSON.stringify(user.address, null, 2)}</pre>
               </div>
             </div>
-            <div className="mt-10 py-10 border-t rounded border-blueGray-200 text-center bg-gradient-to-b from-zinc-400">
-              <ProfileTabs profile={data.user || {}} userData={user || {}} />
-            </div>
           </div>
         </div>
       </div>
