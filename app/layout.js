@@ -2,7 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
-import Cart from "@/context/cartContext";
+import Cart from "../context/cartContext";
 
 import Provider from "@/app/components/Provider";
 import Navbar from "./components/Navbar";

@@ -5,6 +5,7 @@ import { cloneDeep } from "lodash";
 const initialCartState = {
   items: [],
   total: 0,
+  cartOpen: false,
 };
 
 // cart context
@@ -15,6 +16,7 @@ const CartContext = createContext({
   increaseQuantity: (productId) => {},
   decreaseQuantity: (productId) => {},
   clearCart: () => {},
+  toggleCart: () => {},
 });
 
 // cart reducer
@@ -32,6 +34,8 @@ const cartReducer = (state, action) => {
       return clearCart();
     case "SET_CART":
       return action.payload;
+    case "TOGGLE_CART":
+      return { ...state, cartOpen: !state.cartOpen };
     default:
       return state;
   }
@@ -103,10 +107,15 @@ const decreaseQuantity = (state, itemId) => {
   return updatedCart;
 };
 
-// cart context provider
 const clearCart = () => {
   return cloneDeep(initialCartState);
 };
+
+{
+  /************************************
+    cart Contex component provider
+************************************/
+}
 
 const Cart = ({ children }) => {
   const [cartState, dispatch] = useReducer(cartReducer, initialCartState);
@@ -142,6 +151,10 @@ const Cart = ({ children }) => {
     dispatch({ type: "CLEAR_CART" });
   };
 
+  const toggleCart = () => {
+    dispatch({ type: "TOGGLE_CART" });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -151,10 +164,12 @@ const Cart = ({ children }) => {
         increaseQuantity,
         decreaseQuantity,
         clearCart,
+        toggleCart,
       }}
     >
-      {/* Render your cart components */}
+      {/* ********************** */}
       {children}
+      {/* ********************** */}
     </CartContext.Provider>
   );
 };

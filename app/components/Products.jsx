@@ -49,7 +49,7 @@ const productsData = [
 ];
 
 const Products = ({ products }) => {
-  let { addItem } = useCart();
+  let { addItem, toggleCart } = useCart();
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -75,7 +75,11 @@ const Products = ({ products }) => {
                   $ {product.price}
                 </span>
                 <button
-                  onClick={() => addItem({ ...product, quantity: 1 })}
+                  onClick={() => {
+                    addItem({ ...product, quantity: 1 });
+                    toggleCart();
+                    setTimeout(() => toggleCart(), 1500);
+                  }}
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Add to cart

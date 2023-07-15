@@ -1,14 +1,15 @@
 "use client";
-import { Fragment } from "react";
+import { Fragment, Suspense, useState } from "react";
 
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { HiShoppingBag } from "react-icons/hi2";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useCart } from "@/context/cartContext";
+import { useCart } from "../../context/cartContext";
 import Cart from "./cart/Cart";
+import CartDialog from "./cart/CartDialog";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -25,6 +26,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   let {
     cartState: { items },
+    toggleCart,
   } = useCart();
   let cartItemsCount = items.length;
 
@@ -82,19 +84,21 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div>
-                  <button
-                    onMouseOver={() => <Cart />}
-                    type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <Link href="/cart">
+                <Suspense fallback={() => <HiShoppingBag />}>
+                  <div>
+                    <button
+                      onClick={() => toggleCart()}
+                      type="button"
+                      className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      {/* <Link href="/cart"> */}
                       <HiShoppingBag />
-                    </Link>
-                  </button>
-                  <sup>{cartItemsCount}</sup>
-                </div>
+                      {/* </Link> */}
+                    </button>
+                    <sup>{cartItemsCount}</sup>
+                  </div>
+                  <CartDialog />
+                </Suspense>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
