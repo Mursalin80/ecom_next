@@ -1,6 +1,11 @@
 import Image from "next/image";
-import Products from "@/app/components/Products";
+import Products from "@/app/components/products/Products";
 import prisma from "@/lib/prisma";
+
+export const metadata = {
+  title: "E-Commerance Store",
+  description: "We provide the electronic items smart phone labtop iphone",
+};
 
 let getProducts = async () => {
   return await prisma.product.findMany();

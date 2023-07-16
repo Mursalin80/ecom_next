@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
-import ProfileTabs from "@/app/components/ProfileTabs";
 
 const getSessionData = async () => {
   let session = await getServerSession(authOption);

@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileData from "@/app/components/ProfileTabs";
+import ProfileData from "@/app/components/user/ProfileTabs";
 
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
