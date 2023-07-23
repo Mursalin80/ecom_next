@@ -1,41 +1,44 @@
-"use client";
-import React from "react";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
+import prisma from "@/utils/prisma";
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import Cart from "../components/cart/Cart";
-import { useCart } from "../../context/cartContext";
+import Address from "@/app/components/order_user/Address";
 
-const page = () => {
-  let {
-    cartState: { items },
-  } = useCart();
-  const products = [
-    {
-      id: 1,
-      name: "Throwback Hip Bag",
-      href: "#",
-      color: "Salmon",
-      price: "$90.00",
-      quantity: 1,
-      imageSrc:
-        "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
-      imageAlt:
-        "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
-    },
-    {
-      id: 2,
-      name: "Medium Stuff Satchel",
-      href: "#",
-      color: "Blue",
-      price: "$32.00",
-      quantity: 1,
-      imageSrc:
-        "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
-      imageAlt:
-        "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
-    },
-    // More products...
-  ];
+const getSessionData = async () => {
+  let session = await getServerSession(authOption);
+  if (!session) {
+    redirect("api/auth/signin");
+    return;
+  }
+  return session;
+};
 
-  return <Cart products={products} />;
+let fetchUser = async (id) => {
+  return await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      name: true,
+      email: true,
+      address: true,
+      id: true,
+      image: true,
+    },
+  });
+};
+
+const page = async () => {
+  const data = await getSessionData();
+  let user = await fetchUser(data.user.id);
+  console.log(user.address);
+  return (
+    <div className="flex container mx-auto h-screen my-2 p-9">
+      <Address />
+      <Cart />
+    </div>
+  );
 };
 
 export default page;

@@ -3,7 +3,7 @@ import ProfileData from "@/app/components/user/ProfileTabs";
 
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import prisma from "@/utils/prisma";
 
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 

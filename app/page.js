@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Products from "@/app/components/products/Products";
-import prisma from "@/lib/prisma";
+import prisma from "@/utils/prisma";
 
 export const metadata = {
   title: "E-Commerance Store",

@@ -36,6 +36,7 @@ type Address {
   state String
   country String
   zip    String?
+  phone String
 }
 
 model Account {
@@ -105,7 +106,7 @@ type Reviews {
 model Order {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   paidAt         DateTime?
-  itemsPrice     Float
+  itemsPrice     Float?
   taxPrice       Float
   shippingPrice  Float
   totalPrice    Float
@@ -154,7 +155,8 @@ model OrderItem {
 model PaymentInfo {
   id    String      @id @default(auto()) @map("_id") @db.ObjectId
   status String?
-
+  paymentMethod String?
+  paymentId String?
   orderId String @db.ObjectId @unique
   order   Order   @relation(fields: [orderId], references: [id])
 

@@ -2,9 +2,9 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
-import Cart from "../context/cartContext";
+import CartContext from "../context/cartContext";
 
-import Provider from "@/app/components/Provider";
+import AuthProvider from "@/app/components/Provider";
 import Navbar from "./components/nav/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,13 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>
-          <Cart>
+        <AuthProvider>
+          <CartContext>
             <Navbar />
 
             {children}
-          </Cart>
-        </Provider>
+          </CartContext>
+        </AuthProvider>
         <ToastContainer
           position="top-right"
           autoClose={5000}

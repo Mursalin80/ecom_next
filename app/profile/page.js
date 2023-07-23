@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import prisma from "@/utils/prisma";
 
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 
@@ -107,7 +107,7 @@ const Profile = async () => {
               <div className="mb-2 text-blueGray-600">
                 <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
                 {data?.user.email}
-                <pre>{JSON.stringify(user.address, null, 2)}</pre>
+                <pre>{JSON.stringify(...user.address, null, 2)}</pre>
               </div>
             </div>
           </div>
