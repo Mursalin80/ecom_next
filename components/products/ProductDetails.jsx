@@ -14,10 +14,7 @@ const Product = ({ productInfo }) => {
     "🚀 ~ file: ProductDetails.jsx:65 ~ Product ~ product:",
     productInfo
   );
-  productInfo.breadcrumbs = [
-    { id: 1, name: "Men", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ];
+  productInfo.breadcrumbs = [{ id: 1, name: "Electronic", href: "#" }];
   productInfo.colors = [
     { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
     { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },

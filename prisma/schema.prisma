@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -36,7 +39,7 @@ type Address {
   state String
   country String
   zip    String?
-  phone String
+  phone String?
 }
 
 model Account {
@@ -107,10 +110,10 @@ model Order {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   paidAt         DateTime?
   itemsPrice     Float?
-  taxPrice       Float
-  shippingPrice  Float
-  totalPrice    Float
-  orderStatus    String
+  taxPrice       Float?
+  shippingPrice  Float?
+  totalPrice    Float?
+  orderStatus    String?
   deliveredAt    DateTime?
   createdAt      DateTime       @default(now())
   shippingInfo    ShippingInfo[]
@@ -142,7 +145,7 @@ model OrderItem {
   id       String      @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   quantity Int
-  image    String
+  image    String?
   price    Float
   orderId String @db.ObjectId
   order   Order   @relation(fields: [orderId], references: [id])

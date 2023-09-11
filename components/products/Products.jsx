@@ -28,7 +28,6 @@ const Products = ({ products }) => {
                 </div>
               </Link>
               <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-
               <div className="flex items-center justify-between my-2 bg-gray-100 py-1 px-3 rounded-lg">
                 <span className="text-xl font-bold text-gray-900 dark:text-white">
                   $ {product.price}

@@ -1,14 +1,13 @@
 "use client";
-import getStripe from "@/utils/get_stripe";
+import getStripe from "@/utils/stripe_client";
 import { FaStripeS } from "react-icons/fa";
 import Link from "next/link";
 
 import { useCart } from "@/context/cartContext";
 
-const Cart = async () => {
-  let {
+const Cart = ({ session }) => {
+  const {
     cartState: { items, total },
-
     removeItem,
     increaseQuantity,
     decreaseQuantity,
@@ -20,39 +19,40 @@ const Cart = async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       cache: "no-cache",
-      body: JSON.stringify({ items, total }),
+      body: JSON.stringify({ items, total, userId: session.id }),
     });
 
     const data = await response.json();
 
-    if (data.session) {
+    if (data?.session) {
       stripe?.redirectToCheckout({ sessionId: data.session.id });
     }
   };
 
   return (
-    <div className="flex h-full flex-col bg-gray-200 shadow-xl m-5 w-1/2 mx-auto rounded-3xl my-2">
-      <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+    <div className="flex h-full w-full flex-col  bg-gray-200 shadow-xl p-1 mx:1 xl:mx-5 md:w-4/6 rounded-3xl my-2">
+      <div className="flex-1  overflow-y-auto px-4 py-6 sm:px-6">
         <div className="flex items-start justify-between">
           <div className="text-lg font-medium text-gray-900">Shopping cart</div>
         </div>
 
         <div className="mt-8">
-          <div className="flow-root">
+          <div className="flow-root ">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {items.map((item) => (
-                <li key={item.id} className="flex py-6">
-                  <Link href={`/product/${item.id}`}>
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <img
-                        src={item.images[0].url}
-                        alt={item.description}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-                  </Link>
-
-                  <div className="ml-4 flex flex-1 flex-col">
+                <div className="flex py-6 flex-col xl:flex-row ">
+                  <li key={item.id} className="">
+                    <Link href={`/product/${item.id}`}>
+                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <img
+                          src={item.images[0].url}
+                          alt={item.description}
+                          className="h-full w-full object-cover object-center"
+                        />
+                      </div>
+                    </Link>
+                  </li>
+                  <div className="ml-4 flex flex-1 flex-col  ">
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <h3>
@@ -69,35 +69,35 @@ const Cart = async () => {
                         Rating:{item.ratings}
                       </p>
                     </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="text-gray-500">Qty {item.quantity}</p>
+                  </div>
+                  <div className="flex  items-end justify-between sm:bg-indigo-100 lg:bg-inherit p-2 m-1 rounded-xl">
+                    <p className="text-gray-500">Qty {item.quantity}</p>
 
-                      <div className="flex text-lg">
-                        <button
-                          onClick={() => increaseQuantity(item.id)}
-                          type="button"
-                          className="font-medium text-indigo-600 hover:text-indigo-500 p-2 m-1"
-                        >
-                          +
-                        </button>
-                        <button
-                          onClick={() => decreaseQuantity(item.id)}
-                          type="button"
-                          className="font-medium text-indigo-600 hover:text-indigo-500 p-2 m-1"
-                        >
-                          -
-                        </button>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          type="button"
-                          className="font-medium text-indigo-600 hover:text-indigo-500 p-2 m-1"
-                        >
-                          Remove
-                        </button>
-                      </div>
+                    <div className="flex text-lg">
+                      <button
+                        onClick={() => increaseQuantity(item.id)}
+                        type="button"
+                        className="font-medium text-indigo-600 hover:text-indigo-500 p-2 m-1"
+                      >
+                        +
+                      </button>
+                      <button
+                        onClick={() => decreaseQuantity(item.id)}
+                        type="button"
+                        className="font-medium text-indigo-600 hover:text-indigo-500 p-2 m-1"
+                      >
+                        -
+                      </button>
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        type="button"
+                        className="font-bold  text-red-400 hover:text-red-600 p-2 m-1"
+                      >
+                        X
+                      </button>
                     </div>
                   </div>
-                </li>
+                </div>
               ))}
             </ul>
           </div>

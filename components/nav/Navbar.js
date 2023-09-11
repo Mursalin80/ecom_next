@@ -7,7 +7,7 @@ import Link from "next/link";
 import { HiShoppingBag } from "react-icons/hi2";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useCart } from "../../../context/cartContext";
+import { useCart } from "@/context/cartContext";
 import CartDialog from "../cart/CartDialog";
 
 const navigation = [

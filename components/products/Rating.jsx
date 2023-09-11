@@ -29,7 +29,17 @@ const Rating = ({ details, rating, numOfReviews }) => {
                 </svg>
               ))}
 
-              <span>{rating} out 5</span>
+              <span
+                className={`
+                  ${
+                    rating < 3.8
+                      ? "text-red-600 border-red-800  "
+                      : "text-green-600 border-green-800 "
+                  }
+                  underline font-semibold`}
+              >
+                {rating}
+              </span>
             </span>
             {/*              <!-- Helper text --> */}
             {details && (

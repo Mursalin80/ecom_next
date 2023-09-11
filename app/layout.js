@@ -2,10 +2,10 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
-import CartContext from "../context/cartContext";
+import CartContext from "@/context/cartContext";
 
-import AuthProvider from "@/app/components/Provider";
-import Navbar from "./components/nav/Navbar";
+import AuthProvider from "@/components/Provider";
+import Navbar from "@/components/nav/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

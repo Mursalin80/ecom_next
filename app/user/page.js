@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import prisma from "@/utils/prisma";
+import prisma from "@/utils/prismaClient";
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 
-import Layout from "@/app/components/user/User_Layout";
+import Layout from "@/components/user/User_Layout";
 
 const getSessionData = async () => {
   let session = await getServerSession(authOption);

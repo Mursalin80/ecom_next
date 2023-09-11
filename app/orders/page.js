@@ -1,7 +1,7 @@
 import React from "react";
-import OrderTable from "@/app/components/order_user/OrderTable";
-import Layout from "@/app/components/user/User_Layout";
-import prisma from "@/utils/prisma";
+import OrderTable from "@/components/order_user/OrderTable";
+import Layout from "@/components/user/User_Layout";
+import prisma from "@/utils/prismaClient";
 
 let order_count = async () => {
   return await prisma.order.count();

@@ -148,6 +148,7 @@ const Cart = ({ children }) => {
   };
 
   const clearCart = () => {
+    localStorage.removeItem("cart");
     dispatch({ type: "CLEAR_CART" });
   };
 
