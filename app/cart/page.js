@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import prisma from "@/utils/prismaClient";
+import prisma from "@/utils/prisma";
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import Cart from "@/components/cart/Cart";
 // import Address from "@/components/order_user/Address";

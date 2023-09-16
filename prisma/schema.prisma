@@ -87,10 +87,10 @@ model Product {
   orders      OrderItem[]
   category String
   seller String
-  numOfReviews Int
+  numOfReviews Int?
 stock Int
 reviews Reviews[]
-ratings Float
+ratings Float?
   @@map(name: "product")
 }
 
@@ -111,7 +111,7 @@ model Order {
   paidAt         DateTime?
   itemsPrice     Float?
   taxPrice       Float?
-  shippingPrice  Float?
+  shippingPrice  Float
   totalPrice    Float?
   orderStatus    String?
   deliveredAt    DateTime?

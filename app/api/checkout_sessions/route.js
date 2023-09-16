@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import prisma from "@/utils/prismaClient";
+import prisma from "@/utils/prisma";
 
 const key = process.env.STRIPE_SECRET_KEY;
 

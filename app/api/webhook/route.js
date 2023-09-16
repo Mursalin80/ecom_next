@@ -2,15 +2,6 @@ import { headers } from "next/headers";
 import { stripe } from "@/utils/stripe";
 import prisma from "@/utils/prisma";
 
-// Partial of ./pages/api/webhooks/index.ts
-// import Cors from "micro-cors";
-
-// const cors = Cors({
-//   allowMethods: ["POST", "HEAD"],
-// });
-// // ...
-// export default cors(webhookHandler);
-
 export async function POST(req) {
   const body = await req.text();
   const sig = headers().get("Stripe-Signature");
@@ -31,16 +22,6 @@ export async function POST(req) {
   try {
     switch (event.type) {
       case "checkout.session.completed":
-        // console.log("checkout.session:webhook", checkout_session);
-
-        // let items = await stripe.checkout.sessions.listLineItems(
-        //   checkout_session.id
-        // );
-        // console.log(
-        //   "checkout.sessions.listLineItems route.js:38 items:",
-        //   items
-        // );
-
         let checkout = await stripe.checkout.sessions.retrieve(
           checkout_session.id,
           { expand: ["line_items", "customer"] }

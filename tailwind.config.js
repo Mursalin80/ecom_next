@@ -11,6 +11,7 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite-react/**/*.js",
   ],
+
   theme: {
     extend: {
       backgroundImage: {
@@ -23,5 +24,5 @@ module.exports = {
     },
   },
 
-  plugins: [require("flowbite/plugin")],
+  plugins: [require("flowbite/plugin"), require("@tailwindcss/forms")],
 };

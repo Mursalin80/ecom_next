@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import prisma from "@/utils/prismaClient";
+import prisma from "@/utils/prisma";
 
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 

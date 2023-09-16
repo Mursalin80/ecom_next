@@ -1,6 +1,8 @@
 "use client";
 import { Fragment, Suspense, useState } from "react";
 
+import { usePathname } from "next/navigation";
+
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,10 +13,10 @@ import { useCart } from "@/context/cartContext";
 import CartDialog from "../cart/CartDialog";
 
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
-  { name: "Profile", href: "/profile", current: false },
-  { name: "ProfileData", href: "/profileData", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Dashboard", href: "/" },
+  { name: "Profile", href: "/profile" },
+  { name: "ProfileData", href: "/profileData" },
+  { name: "Calendar", href: "#" },
 ];
 
 function classNames(...classes) {
@@ -23,6 +25,8 @@ function classNames(...classes) {
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const path = usePathname();
+
   let {
     cartState: { items },
     toggleCart,
@@ -69,8 +73,8 @@ const Navbar = () => {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
+                          path === item.href
+                            ? "border-y-2 border-indigo-600 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
