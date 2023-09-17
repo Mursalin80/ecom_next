@@ -1,5 +1,5 @@
 import ProductDetails from "@/components/products/ProductDetails";
-import prisma from "@/utils/prismaClient";
+import prisma from "@/utils/prisma";
 let getProduct = async (id) => {
   return await prisma.product.findUnique({
     where: {

@@ -21,6 +21,7 @@ export async function POST(req) {
     const el = images[i];
     try {
       let res = await uploadImage(el);
+      console.log("🚀 ~ file: route.js:24 ~ POST ~ res:", res);
       imgRes.push({ public_id: res.public_id, url: res.url });
     } catch (error) {
       console.log("🚀 ~ file: route.js:23 ~ POST ~ error:", error);

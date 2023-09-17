@@ -88,7 +88,7 @@ const Product = ({ productInfo }) => {
               <Image
                 width={400}
                 height={250}
-                src={productInfo.images[0].url}
+                src={productInfo.images[1]?.url || productInfo.images[0].url}
                 alt={productInfo.name}
                 className="h-full w-full object-cover object-center"
               />
@@ -97,7 +97,7 @@ const Product = ({ productInfo }) => {
               <Image
                 width={400}
                 height={250}
-                src={productInfo.images[0].url}
+                src={productInfo.images[2]?.url || productInfo.images[0].url}
                 alt={productInfo.name}
                 className="h-full w-full object-cover object-center"
               />
@@ -107,7 +107,7 @@ const Product = ({ productInfo }) => {
             <Image
               width={600}
               height={400}
-              src={productInfo.images[0].url}
+              src={productInfo.images[3]?.url || productInfo.images[0].url}
               alt={productInfo.name}
               className="h-full w-full object-cover object-center"
             />

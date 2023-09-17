@@ -87,7 +87,10 @@ model Product {
   orders      OrderItem[]
   category String
   seller String
+  brand String?
   numOfReviews Int?
+  thumbnail String?
+  discountPercentage Float?
 stock Int
 reviews Reviews[]
 ratings Float?
@@ -95,7 +98,7 @@ ratings Float?
 }
 
 type Image {
- public_id String
+ public_id String?
   url    String
 }
 
