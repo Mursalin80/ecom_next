@@ -6,6 +6,8 @@ import CartContext from "@/context/cartContext";
 
 import AuthProvider from "@/components/Provider";
 import Navbar from "@/components/nav/Navbar";
+import ErrorBoundary from "@/components/error/ErrorBoundary";
+import Error from "@/components/error/Error";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,13 +15,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <CartContext>
-            <Navbar />
+        <ErrorBoundary fallback={<Error />}>
+          <AuthProvider>
+            <CartContext>
+              <Navbar />
 
-            {children}
-          </CartContext>
-        </AuthProvider>
+              {children}
+            </CartContext>
+          </AuthProvider>
+        </ErrorBoundary>
+
         <ToastContainer
           position="top-right"
           autoClose={5000}
