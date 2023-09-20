@@ -18,7 +18,10 @@ export default function Home() {
   const productsQuery = async ({ take = 10, lastCursor = "" }) => {
     setLoading(true);
     let url = "/api/products?" + new URLSearchParams({ take, lastCursor });
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      cache: "force-cache",
+      next: { revalidate: 3600 },
+    });
     let data = await response.json();
     setLoading(false);
     if (data) {
@@ -56,13 +59,12 @@ export default function Home() {
         class="bg-teal-500 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
       >
         <svg
-          class="fill-current w-4 h-4 mr-2"
+          class={`fill-current w-5 h-5 mr-2 animate-bounce bg-gradient-to-b from-blue-200 to-blue-600 `}
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
         >
           <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
         </svg>
-
         <span>Load more products!</span>
       </button>
 
