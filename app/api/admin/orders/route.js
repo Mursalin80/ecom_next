@@ -1,37 +1,19 @@
-import {} from "next/headers";
-
 import prisma from "@/utils/prisma";
 
 export async function GET(req) {
+  console.log("Orders API called!!!!!!!!");
   let orders = await prisma.order.findMany({
     orderBy: {
       createdAt: "desc",
     },
-    include: {
-      paymentInfo: {
-        select: {
-          paymentId: true,
-          status: true,
-        },
-      },
-      user: {
-        select: {
-          id: true,
-          email: true,
-        },
-      },
-      orderItems: {
-        select: {
-          productId: true,
-          product: {
-            select: {
-              name: true,
-            },
-          },
-          price: true,
-          quantity: true,
-        },
-      },
+    select: {
+      id: true,
+      paidAt: true,
+      taxPrice: true,
+      totalPrice: true,
+      orderStatus: true,
+      deliveredAt: true,
+      shippingPrice: true,
     },
   });
   let count = await prisma.order.count();
