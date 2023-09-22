@@ -10,10 +10,6 @@ function classNames(...classes) {
 }
 
 const Product = ({ productInfo }) => {
-  console.log(
-    "🚀 ~ file: ProductDetails.jsx:65 ~ Product ~ product:",
-    productInfo
-  );
   productInfo.breadcrumbs = [{ id: 1, name: "Electronic", href: "#" }];
   productInfo.colors = [
     { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },

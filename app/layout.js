@@ -3,11 +3,13 @@ import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide, ToastContainer } from "react-toastify";
 import CartContext from "@/context/cartContext";
+import { Suspense } from "react";
 
 import AuthProvider from "@/components/Provider";
 import Navbar from "@/components/nav/Navbar";
 import ErrorBoundary from "@/components/error/ErrorBoundary";
 import Error from "@/components/error/Error";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +19,12 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ErrorBoundary fallback={<Error />}>
           <AuthProvider>
-            <CartContext>
-              <Navbar />
-
-              {children}
-            </CartContext>
+            <Suspense fallback={<Loading />}>
+              <CartContext>
+                <Navbar />
+                {children}
+              </CartContext>
+            </Suspense>
           </AuthProvider>
         </ErrorBoundary>
 

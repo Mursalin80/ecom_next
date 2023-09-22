@@ -7,6 +7,16 @@ let getProduct = async (id) => {
     },
   });
 };
+
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    take: 15,
+  });
+
+  return products.map((product) => ({
+    id: product.id,
+  }));
+}
 const page = async ({ params: { id } }) => {
   let product = await getProduct(id);
 

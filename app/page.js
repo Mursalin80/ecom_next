@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:5 xl:p-20 p-1">
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
           <Products products={products} />
         </div>
@@ -50,23 +50,16 @@ export default function Home() {
           No more Products
         </div>
       ) : (
-        ""
-      )}
-
-      <button
-        disabled={!meta.hasNextPage}
-        onClick={() => productsQuery({ take: 10, lastCursor: meta.lastCursor })}
-        class="bg-teal-500 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-      >
-        <svg
-          class={`fill-current w-5 h-5 mr-2 animate-bounce bg-gradient-to-b from-blue-200 to-blue-600 `}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+        <button
+          disabled={!meta.hasNextPage}
+          onClick={() =>
+            productsQuery({ take: 10, lastCursor: meta.lastCursor })
+          }
+          class="bg-blue-700 hover:bg-blue-400  text-white  py-2 px-4 rounded-xl inline-flex items-center"
         >
-          <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-        </svg>
-        <span>Load more products!</span>
-      </button>
+          <span className="animate-bounce">Load more products!</span>
+        </button>
+      )}
 
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
