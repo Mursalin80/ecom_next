@@ -10,6 +10,16 @@ export const metadata = {
   description: "We provide the electronic items smart phone labtop iphone",
 };
 
+// const handleScroll = () => {
+//   let top = window.innerHeight + document.documentElement.scrollTop + 20;
+//   let bot = document.documentElement.offsetHeight;
+//   console.log({ url });
+
+//   if (top > bot) {
+//     return productsQuery(url);
+//   }
+// };
+
 export default function Home() {
   let [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,6 +43,13 @@ export default function Home() {
   useEffect(() => {
     productsQuery({});
   }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:5 xl:p-20 p-1">

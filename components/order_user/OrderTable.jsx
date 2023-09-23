@@ -5,9 +5,12 @@ const OrderTable = ({ ordersData }) => {
 
   return (
     <div className="container mx-auto py-10 px-4 my-2 h-screen">
+      <div className=" bg-stone-800 text-center">
+        <h1 className="text-6xl text-blue-600 m-5 p-5">All Orders</h1>
+        <p className="py-2 text-white">Total Order count: {totalOrders}</p>
+      </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <caption className="caption-top">Total Orders:{totalOrders}</caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
