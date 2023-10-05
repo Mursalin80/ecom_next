@@ -9,7 +9,7 @@ import AuthProvider from "@/components/Provider";
 import Navbar from "@/components/nav/Navbar";
 import ErrorBoundary from "@/components/error/ErrorBoundary";
 import Error from "@/components/error/Error";
-import Loading from "./loading";
+import LoadingDots from "@/components/util/loading-dots";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ErrorBoundary fallback={<Error />}>
           <AuthProvider>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<LoadingDots />}>
               <CartContext>
                 <Navbar />
                 {children}

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import Products from "@/components/products/Products";
 import Spinner from "@/components/util/Spinner";
@@ -10,20 +11,14 @@ export const metadata = {
   description: "We provide the electronic items smart phone labtop iphone",
 };
 
-// const handleScroll = () => {
-//   let top = window.innerHeight + document.documentElement.scrollTop + 20;
-//   let bot = document.documentElement.offsetHeight;
-//   console.log({ url });
-
-//   if (top > bot) {
-//     return productsQuery(url);
-//   }
-// };
-
 export default function Home() {
   let [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   let [meta, setMeta] = useState({ hasNextPage: true, lastCursor: "" });
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0.1,
+  });
 
   const productsQuery = async ({ take = 10, lastCursor = "" }) => {
     setLoading(true);
@@ -44,12 +39,11 @@ export default function Home() {
     productsQuery({});
   }, []);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    if (inView && !loading) {
+      productsQuery({ take: 10, lastCursor: meta.lastCursor });
+    }
+  }, [inView]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:5 xl:p-20 p-1">
@@ -61,21 +55,14 @@ export default function Home() {
         ""
       )}
 
-      <div className="">{loading && <Spinner />}</div>
+      {loading && <Spinner />}
+
       {!loading && !meta.hasNextPage ? (
         <div class="skew-y-2 text-center  text-gray-600 m-2 px-6 py-3 bg-gradient-to-t from-slate-300 via-green-200 dark:from-black dark:via-black">
           No more Products
         </div>
       ) : (
-        <button
-          disabled={!meta.hasNextPage}
-          onClick={() =>
-            productsQuery({ take: 10, lastCursor: meta.lastCursor })
-          }
-          class="bg-blue-700 hover:bg-blue-400  text-white  py-2 px-4 rounded-xl inline-flex items-center"
-        >
-          <span className="animate-bounce">Load more products!</span>
-        </button>
+        <div ref={ref}></div>
       )}
 
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
