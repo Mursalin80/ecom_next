@@ -17,13 +17,12 @@ const Products = ({ products }) => {
           {products.map((product) => (
             <div key={product.id} className="group  my-1">
               <Link href={`/product/${product.id}`}>
-                {/* <div className=" aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7"> */}
                 <div className="aspect-square w-full overflow-clip rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <Image
                     width={250}
                     height={250}
                     src={product.images[0].url}
-                    alt={product.images[0].public_id}
+                    alt={product.name}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>

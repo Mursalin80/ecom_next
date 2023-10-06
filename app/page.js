@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 
 import Products from "@/components/products/Products";
 import Spinner from "@/components/util/Spinner";
+import useProductsStore from "@/context/productsStore";
 
 export const metadata = {
   title: "E-Commerance Store",
@@ -12,31 +13,43 @@ export const metadata = {
 };
 
 export default function Home() {
-  let [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  let [meta, setMeta] = useState({ hasNextPage: true, lastCursor: "" });
+  const products = useProductsStore((state) => state.products);
+  const loading = useProductsStore((state) => state.loading);
+  const setProducts = useProductsStore((state) => state.fetchProducts);
+  const setError = useProductsStore((state) => state.setError);
+  const setLoading = useProductsStore((state) => state.setLoading);
+  const meta = useProductsStore((state) => state.metadata);
+
+  console.log("🚀 ~ file: page.js:20 ~ Home ~ products:", products.length);
+
   const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0.1,
+    threshold: 0,
   });
 
-  const productsQuery = async ({ take = 10, lastCursor = "" }) => {
+  const productsQuery = useCallback(async ({ take = 10, lastCursor = "" }) => {
     setLoading(true);
-    let url = "/api/products?" + new URLSearchParams({ take, lastCursor });
-    const response = await fetch(url, {
-      cache: "force-cache",
-      next: { revalidate: 3600 },
-    });
-    let data = await response.json();
-    setLoading(false);
-    if (data) {
-      setProducts([...products, ...data?.data]);
-      setMeta({ ...data?.metaData });
+    try {
+      let url = "/api/products?" + new URLSearchParams({ take, lastCursor });
+      const response = await fetch(url, {
+        cache: "force-cache",
+        next: { revalidate: 3600 },
+      });
+      let { data, metaData } = await response.json();
+
+      setProducts(data, metaData);
+      setLoading(false);
+    } catch (error) {
+      console.log({ error });
+      setError(error);
+      setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    productsQuery({});
+    if (products.length < 1) {
+      console.log("init useEffect fired!");
+      productsQuery({});
+    }
   }, []);
 
   useEffect(() => {
@@ -58,7 +71,7 @@ export default function Home() {
       {loading && <Spinner />}
 
       {!loading && !meta.hasNextPage ? (
-        <div class="skew-y-2 text-center  text-gray-600 m-2 px-6 py-3 bg-gradient-to-t from-slate-300 via-green-200 dark:from-black dark:via-black">
+        <div class=" text-center w-full  text-white m-2 px-6 py-3 bg-black">
           No more Products
         </div>
       ) : (
